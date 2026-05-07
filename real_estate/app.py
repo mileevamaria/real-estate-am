@@ -1,12 +1,10 @@
 from flask import Flask, render_template, request
 
-from .config import Config, init_rollbar
+from .config import Config
 from .filters import Currency, Location, Ownership, Rooms
 from .services import ListAmQueryBuilder, parse
 
 app = Flask(__name__)
-
-init_rollbar(app)
 
 
 @app.route('/')
@@ -33,9 +31,3 @@ def index():
         flats=data,
         map_api_key=map_api_key,
     )
-
-
-@app.route('/error')
-def trigger_error():
-    """Trigger a test error for Rollbar."""
-    raise Exception('Test error from Flask')
