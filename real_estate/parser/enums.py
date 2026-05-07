@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class ListAmQueryEnum(Enum):
+class ParserQueryEnum(Enum):
     def __init__(self, value: int, label: str | None = None):
         self._value_ = value
         self.label = label
@@ -15,7 +15,7 @@ class ListAmQueryEnum(Enum):
         self._query_name = value
 
 
-class Location(ListAmQueryEnum):
+class Location(ParserQueryEnum):
     KENTRON = 8, 'Кентрон'
     ARABKIR = 3, 'Арабкир'
 
@@ -23,7 +23,7 @@ class Location(ListAmQueryEnum):
 Location.query_name = 'n'
 
 
-class Ownership(ListAmQueryEnum):
+class Ownership(ParserQueryEnum):
     OWNER = 0, 'Собственник'
     AGENCY = 1, 'Агентство'
 
@@ -31,7 +31,7 @@ class Ownership(ListAmQueryEnum):
 Ownership.query_name = 'cmtype'
 
 
-class Currency(ListAmQueryEnum):
+class Currency(ParserQueryEnum):
     AMD = 0, 'Драм'
     USD = 1, 'Доллар'
 
@@ -39,7 +39,7 @@ class Currency(ListAmQueryEnum):
 Currency.query_name = 'crc'
 
 
-class Rooms(ListAmQueryEnum):
+class Rooms(ParserQueryEnum):
     ONE = 1, '1'
     TWO = 2, '2'
     THREE = 3, '3'
@@ -50,7 +50,7 @@ class Rooms(ListAmQueryEnum):
 Rooms.query_name = '_a4'
 
 
-class NewlyBuilt(ListAmQueryEnum):
+class NewlyBuilt(ParserQueryEnum):
     NO = 1, 'Нет'
     YES = 2, 'Да'
 
@@ -58,7 +58,7 @@ class NewlyBuilt(ListAmQueryEnum):
 NewlyBuilt.query_name = '_a39'
 
 
-class Elevator(ListAmQueryEnum):
+class Elevator(ParserQueryEnum):
     NO = 2, 'Нет'
     YES = 1, 'Да'
 

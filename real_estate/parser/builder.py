@@ -1,12 +1,9 @@
 from urllib.parse import urlencode
 
-from real_estate.filters import QUERY_SCHEMA
+from real_estate.parser import QUERY_SCHEMA, ParserConfig
 
 
-class ListAmQueryBuilder:
-    BASE_URL = 'https://www.list.am/ru/aj-category-map?c=60&gl=8'
-    QUERY_EXAMPLE = 'n=8,3&_a39=2&_a11_1=5&_a4=2'
-
+class ParserQueryBuilder:
     def __init__(self):
         self._query = QUERY_SCHEMA.copy()
 
@@ -15,9 +12,11 @@ class ListAmQueryBuilder:
             self._query[key] = ','.join(value)
         return self
 
-    def build(self):
-        url = self.BASE_URL
+    def build(self, base=False):
+        url = ParserConfig.BASE_URL
         query_string = urlencode(self._query)
-        if query_string:
+        if base:
+            url = f'{url}&{ParserConfig.BASE_QUERY}'
+        elif query_string:
             url = f'{url}&{query_string}'
         return url

@@ -1,0 +1,7 @@
+services:
+  parser:
+    build: .
+    volumes:
+      - ./data:/data
+      - .:/app
+    restart: unless-stopped

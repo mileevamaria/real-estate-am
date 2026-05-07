@@ -1,3 +1,4 @@
+from .config import ParserConfig
 from .enums import (
     Currency,
     Elevator,
@@ -42,4 +43,5 @@ __all__ = (
     'Floor',
     'SquareMeters',
     'QUERY_SCHEMA',
+    'ParserConfig',
 )
