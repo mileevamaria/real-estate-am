@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request
 
-from .config import Config
+from .config import Config, init_rollbar
 from .filters import Currency, Location, Ownership, Rooms
 from .services import ListAmQueryBuilder, parse
 
 app = Flask(__name__)
+
+init_rollbar(app)
 
 
 @app.route('/')
