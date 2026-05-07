@@ -1,0 +1,75 @@
+.ymaps-2-1-79-image-with-content {
+    overflow: visible !important;
+}
+
+
+.price-marker {
+
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    background: white;
+
+    border: 2px solid #1e98ff;
+
+    border-radius: 999px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    color: black;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,.15);
+
+    position: relative;
+
+    transform: translate(-50%, -100%);
+
+    cursor: pointer;
+
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease;
+
+    pointer-events: none;
+
+    font-size: 14px;
+}
+
+
+.price-marker:hover {
+
+    transform:
+        translate(-50%, -100%)
+        scale(1.05);
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.2);
+}
+
+
+.price-marker::after {
+
+    content: '';
+
+    position: absolute;
+
+    left: 50%;
+    bottom: -7px;
+
+    width: 12px;
+    height: 12px;
+
+    background: white;
+
+    border-right: 2px solid #1e98ff;
+    border-bottom: 2px solid #1e98ff;
+
+    transform:
+        translateX(-50%)
+        rotate(45deg);
+}

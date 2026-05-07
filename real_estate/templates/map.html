@@ -1,0 +1,18 @@
+<div class="col-lg-10 p-0">
+  <div id="map" class="vh-100">
+    
+    <script>
+      window.FLATS = {{ flats | tojson }};
+    </script>
+
+    <script
+      src="https://api-maps.yandex.ru/2.1/?apikey={{ yandex_maps_api_key }}&lang=ru_RU"
+      type="text/javascript"
+    ></script>
+
+    <script
+        src="{{ url_for('static', filename='js/map.js') }}"
+    ></script>
+
+  </div>
+</div>

@@ -1,0 +1,356 @@
+
+<div class="col-lg-2 p-0">
+
+    <div
+        class="sticky-top vh-100 overflow-auto bg-white border-end shadow-sm p-4"
+    >
+
+        <form method="GET">
+
+            <h4 class="mb-4">
+                Фильтры
+            </h4>
+
+            <!-- LOCATION -->
+            <div class="mb-4">
+
+                <label class="form-label fw-semibold">
+                    Район
+                </label>
+
+                <select
+                    class="form-select"
+                    name="n"
+                    multiple
+                    size="2"
+                >
+
+                    {% for location in locations %}
+
+                        <option
+                            value="{{ location.value }}"
+                            {% if location.value|string in selected.getlist('n') %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ location.label }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <!-- OWNERSHIP -->
+            <div class="mb-4">
+
+                <label class="form-label fw-semibold">
+                    Тип продавца
+                </label>
+
+                <select
+                    class="form-select"
+                    name="cmtype"
+                >
+
+                    <option value="">
+                        —
+                    </option>
+
+                    {% for ownership in ownerships %}
+
+                        <option
+                            value="{{ ownership.value }}"
+                            {% if selected.get('cmtype') == ownership.value|string %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ ownership.label }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <!-- ROOMS -->
+            <div class="mb-4">
+
+                <label class="form-label fw-semibold">
+                    Комнаты
+                </label>
+
+                <select
+                    class="form-select"
+                    name="_a4"
+                    multiple
+                    size="5"
+                >
+
+                    {% for room in rooms %}
+
+                        <option
+                            value="{{ room.value }}"
+                            {% if room.value|string in selected.getlist('_a4') %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ room.label }}
+                        </option>
+                        
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <!-- CURRENCY -->
+            <div class="mb-4">
+
+                <label class="form-label fw-semibold">
+                    Валюта
+                </label>
+
+                <select
+                    class="form-select"
+                    name="crc"
+                >
+
+                    <option value="">
+                        —
+                    </option>
+
+                    {% for currency in currencies %}
+
+                        <option
+                            value="{{ currency.value }}"
+                            {% if selected.get('crc') == currency.value|string %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ currency.label }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <!-- TOTAL PRICE -->
+            <div class="mb-4">
+
+                <label class="form-label fw-semibold">
+                    Общая цена
+                </label>
+
+                <div class="input-group mb-2">
+
+                    <span class="input-group-text">
+                        от
+                    </span>
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="price1"
+                        value="{{ selected.get('price1', '') }}"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <span class="input-group-text">
+                        до
+                    </span>
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="price2"
+                        value="{{ selected.get('price2', '') }}"
+                    >
+
+                </div>
+
+            </div>
+
+            <!-- PRICE PER SQM -->
+            <div class="mb-4">
+
+              <label class="form-label fw-semibold">
+                  Цена за м²
+              </label>
+
+              <div class="input-group mb-2">
+
+                  <span class="input-group-text">
+                      от
+                  </span>
+
+                  <input
+                      type="number"
+                      class="form-control"
+                      name="sq_price1"
+                      value="{{ selected.get('sq_price1', '') }}"
+                  >
+
+              </div>
+
+              <div class="input-group">
+
+                  <span class="input-group-text">
+                      до
+                  </span>
+
+                  <input
+                      type="number"
+                      class="form-control"
+                      name="sq_price2"
+                      value="{{ selected.get('sq_price2', '') }}"
+                  >
+
+              </div>
+
+            </div>
+
+            <!-- AREA -->
+            <div class="mb-4">
+
+                <label class="form-label fw-semibold">
+                    Площадь
+                </label>
+
+                <div class="input-group mb-2">
+
+                    <span class="input-group-text">
+                        от
+                    </span>
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="_a3_1"
+                        value="{{ selected.get('_a3_1', '') }}"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <span class="input-group-text">
+                        до
+                    </span>
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="_a3_2"
+                        value="{{ selected.get('_a3_2', '') }}"
+                    >
+
+                </div>
+
+            </div>
+
+            <!-- FLOOR -->
+            <div class="mb-4">
+
+                <label class="form-label fw-semibold">
+                    Этаж
+                </label>
+
+                <div class="input-group mb-2">
+
+                    <span class="input-group-text">
+                        от
+                    </span>
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="_a11_1"
+                        value="{{ selected.get('_a11_1', '') }}"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <span class="input-group-text">
+                        до
+                    </span>
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="_a11_2"
+                        value="{{ selected.get('_a11_2', '') }}"
+                    >
+
+                </div>
+
+            </div>
+
+            <!-- CHECKBOXES: ELEVATOR & NEWLY_BUILT -->
+            <div class="mb-4">
+
+                <label class="form-label fw-semibold d-block mb-2">
+                    Дополнительно
+                </label>
+
+                <div class="form-check mb-2">
+
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="_a39"
+                        value="2"
+                        {% if selected.get('_a39') == '2' %}
+                            checked
+                        {% endif %}
+                    >
+
+                    <label class="form-check-label">
+                        Новостройка
+                    </label>
+
+                </div>
+
+                <div class="form-check">
+
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="_a40"
+                        value="1"
+                        {% if selected.get('_a40') == '1' %}
+                            checked
+                        {% endif %}
+                    >
+
+                    <label class="form-check-label">
+                        Лифт
+                    </label>
+
+                </div>
+
+            </div>
+
+            <!-- BUTTON -->
+            <button
+                type="submit"
+                class="btn btn-primary w-100"
+            >
+                Найти
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
