@@ -5,7 +5,6 @@ install:
 lint:
 	uv run ruff check real_estate
 
-PORT ?= 8000
 build:
 	./build.sh
 dev:
