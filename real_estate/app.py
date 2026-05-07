@@ -33,3 +33,9 @@ def index():
         flats=data,
         map_api_key=map_api_key,
     )
+
+
+@app.route('/error')
+def trigger_error():
+    """Trigger a test error for Rollbar."""
+    raise Exception('Test error from Flask')
