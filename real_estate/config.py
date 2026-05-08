@@ -12,6 +12,7 @@ class GlobalConfig:
 
     YANDEX_MAPS_API_KEY = os.getenv('YANDEX_MAPS_API_KEY')
     LOG_FORMAT = '%(asctime)s | %(levelname)s | %(name)s | %(message)s'
+    SECRET_KEY = os.getenv('SECRET_KEY')
     
     @classmethod
     def setup_logging(cls):
@@ -31,3 +32,8 @@ class GlobalConfig:
         file_handler.setFormatter(formatter)
         root_logger.addHandler(console_handler)
         root_logger.addHandler(file_handler)
+
+    @classmethod
+    def set_secret_key(cls, app):
+        app.config['SECRET_KEY'] = cls.SECRET_KEY
+        return app

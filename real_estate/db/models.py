@@ -2,7 +2,7 @@ from datetime import datetime
 from enum import Enum
 from urllib.parse import urljoin
 
-from sqlalchemy import DateTime, Float, Integer, String
+from sqlalchemy import JSON, DateTime, Float, Integer, String
 from sqlalchemy import Enum as SqlEnum
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -44,4 +44,19 @@ class Apartment(Base):
     @property
     def price_per_sqm(self):
         return round(self.price / self.square, 2)
-    
+
+
+class Polygon(Base):
+    __tablename__ = 'polygons'
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String, unique=True, index=True)
+    geojson: Mapped[dict] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.now,
+    )
+
+    def contains(self, apartment: Apartment):
+        from real_estate.services.polygons import is_polygon_contais_apartment
+        return is_polygon_contais_apartment(self, apartment)

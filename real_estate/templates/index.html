@@ -8,6 +8,19 @@
       <script src="https://api-maps.yandex.ru/2.1/?apikey={{ map_api_key }}&lang=ru_RU" type="text/javascript"></script>
   </head>
   <body class="bg-light">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 9999">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show shadow mb-2">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
     <div class="container-fluid">
       <div class="row">
         {% include 'filter.html' %}

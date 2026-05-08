@@ -3,15 +3,13 @@
     
     <script>
       window.FLATS = {{ flats | tojson }};
+      window.POLYGONS = {{ polygons | tojson }};
+      polygonUrl = "{{ url_for('save_poligon') }}";
     </script>
 
     <script
-      src="https://api-maps.yandex.ru/2.1/?apikey={{ yandex_maps_api_key }}&lang=ru_RU"
-      type="text/javascript"
-    ></script>
-
-    <script
-        src="{{ url_for('static', filename='js/map.js') }}"
+      type="module"
+      src="{{ url_for('static', filename='js/map.js') }}"
     ></script>
 
   </div>

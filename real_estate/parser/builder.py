@@ -1,4 +1,6 @@
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlparse, parse_qs
+
+from werkzeug.datastructures import MultiDict
 
 from real_estate.parser import QUERY_SCHEMA, ParserConfig
 
@@ -20,3 +22,16 @@ class ParserQueryBuilder:
         elif query_string:
             url = f'{url}&{query_string}'
         return url
+    
+    def base_request_args(self):
+        url = self.build(base=True)
+        params = parse_qs(
+            urlparse(url).query,
+            keep_blank_values=True,
+        )
+        return MultiDict(
+            (key, item)
+            for key, values in params.items()
+            for value in values
+            for item in value.split(',')
+        )

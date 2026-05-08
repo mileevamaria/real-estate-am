@@ -31,13 +31,13 @@ def fetch_apartments(url: str) -> list[dict]:
 
 
 def collect_apartments() -> None:
-    logger.info('Start parsing apartments')
+    logger.info('start parsing apartments')
     url_builder = ParserQueryBuilder()
     url = url_builder.build(base=True)
     apartments = fetch_apartments(url)
-    logger.info('Fetched %s apartments', len(apartments))
+    logger.info('fetched %s apartments', len(apartments))
     save_apartments(apartments)
-    logger.info('Apartments saved')
+    logger.info('apartments saved')
 
 
 def parse_apartments(groups: list[dict]) -> list:

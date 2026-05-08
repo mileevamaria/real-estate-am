@@ -1,3 +1,8 @@
+import { initPolygon } from './polygon.js';
+
+import { buildBalloon } from './balloon.js';
+
+
 ymaps.ready(init);
 
 
@@ -5,21 +10,38 @@ function init() {
 
     const map = new ymaps.Map('map', {
         center: [40.177200, 44.503490],
+
         zoom: 14,
-        controls: ['zoomControl']
+
+        controls: ['zoomControl'],
+
+        behaviors: [
+            'drag',
+            'scrollZoom',
+            'multiTouch',
+        ]
     });
 
 
-    const PriceLayout = ymaps.templateLayoutFactory.createClass(
-        `
-        <div class="price-marker">
-            {{ properties.iconContent }}
-        </div>
-        `
+    // disable map zoom on double click
+
+    map.behaviors.disable(
+        'dblClickZoom'
     );
 
 
-    window.FLATS['data'].forEach(item => {
+    const PriceLayout = ymaps
+        .templateLayoutFactory
+        .createClass(
+            `
+            <div class="price-marker">
+                {{ properties.iconContent }}
+            </div>
+            `
+        );
+
+
+    window.FLATS.forEach(item => {
 
         const placemark = new ymaps.Placemark(
             [
@@ -29,12 +51,15 @@ function init() {
             {
                 iconContent: item.label,
 
-                balloonContent: buildBalloon(item),
+                balloonContent:
+                    buildBalloon(item),
             },
             {
-                iconLayout: 'default#imageWithContent',
+                iconLayout:
+                    'default#imageWithContent',
 
-                iconContentLayout: PriceLayout,
+                iconContentLayout:
+                    PriceLayout,
 
                 iconImageHref:
                     'https://yastatic.net/s3/home-static/_/empty.png',
@@ -49,12 +74,12 @@ function init() {
 
                 iconShape: {
                     type: 'Rectangle',
-                    coordinates: [
-                        [-60, -50],
-                        [60, 0]
-                    ]
-                },
 
+                    coordinates: [
+                        [-60, -25],
+                        [60, 25]
+                    ]
+                }
             }
         );
 
@@ -62,91 +87,36 @@ function init() {
 
     });
 
-}
+    window.POLYGONS.forEach(geojson => {
 
+        const feature =
+            geojson.features[0];
 
-function buildBalloon(item) {
+        const polygonCoords =
+            feature.geometry.coordinates;
 
-    let html = `
-        <div style="
-            width:320px;
-            max-height:500px;
-            overflow:auto;
-        ">
-    `;
+        const polygon = new ymaps.Polygon(
+            polygonCoords,
+            {
+                hintContent:
+                    feature.properties.name
+            },
+            {
+                fillColor:
+                    'rgba(0, 255, 0, 0.15)',
 
+                strokeColor:
+                    '#00AA00',
 
-    item.data.forEach(flat => {
+                strokeWidth: 3,
+            }
+        );
 
-        html += `
-            <div style="
-                margin-bottom:16px;
-                padding-bottom:16px;
-                border-bottom:1px solid #eee;
-            ">
-
-                <img
-                    src="https:${flat.img}"
-                    style="
-                        width:100%;
-                        border-radius:12px;
-                        margin-bottom:10px;
-                        object-fit:cover;
-                    "
-                >
-
-                <div style="
-                    font-size:18px;
-                    font-weight:700;
-                    margin-bottom:6px;
-                ">
-                    ${flat.price}
-                </div>
-
-                <div style="
-                    margin-bottom:6px;
-                    line-height:1.4;
-                ">
-                    ${flat.title}
-                </div>
-
-                <div style="
-                    color:#777;
-                    font-size:14px;
-                    margin-bottom:6px;
-                ">
-                    ${flat.attr}
-                </div>
-
-                <div style="
-                    color:#1e98ff;
-                    font-size:14px;
-                    font-weight:600;
-                ">
-                    ${flat.clabel}
-                </div>
-
-                <a
-                    href="https://www.list.am/item/${flat.id}"
-                    target="_blank"
-                    style="
-                        display:inline-block;
-                        margin-top:10px;
-                        text-decoration:none;
-                        color:#1e98ff;
-                        font-weight:600;
-                    "
-                >
-                    Открыть объявление
-                </a>
-
-            </div>
-        `;
+        map.geoObjects.add(polygon);
 
     });
 
 
-    html += '</div>';
+    initPolygon(map);
 
-    return html;
 }

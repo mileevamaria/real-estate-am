@@ -1,3 +1,7 @@
+#map {
+    position: relative;
+}
+
 .ymaps-2-1-79-image-with-content {
     overflow: visible !important;
 }
